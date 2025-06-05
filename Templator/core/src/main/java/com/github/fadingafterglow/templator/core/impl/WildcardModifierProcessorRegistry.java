@@ -43,7 +43,7 @@ public class WildcardModifierProcessorRegistry {
 
     @SneakyThrows
     private static Set<Class<?>> findModifierProcessorClasses(String packageName) {
-        return ClassPath.from(ClassLoader.getSystemClassLoader())
+        return ClassPath.from(Thread.currentThread().getContextClassLoader())
                 .getAllClasses().stream()
                 .filter(clazz -> clazz.getPackageName().equalsIgnoreCase(packageName))
                 .map(ClassPath.ClassInfo::load)
