@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class FileProcessor implements IFileProcessor {
 
-    private static final Pattern PATTERN = Pattern.compile("\\w+(\\?\\.\\w+)+");
+    private static final Pattern PATTERN = Pattern.compile("\\w+(\\?\\.\\w+(\\(\\w*\\))?)+");
 
     private final IExpressionProcessor expressionProcessor;
 
