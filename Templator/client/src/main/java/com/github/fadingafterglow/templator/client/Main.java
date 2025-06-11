@@ -23,7 +23,7 @@ public class Main {
 
         String template = readFile("/Users/nick/IdeaProjects/JavaAutomatization/Templator/templates/user-info tests (view permission) template.tpl");
         Map<String, String> wildcardValues = new HashMap<>();
-        if (CONFIG?.getDefaultValues() != null)
+        if (CONFIG.getDefaultValues() != null)
             wildcardValues.putAll(CONFIG.getDefaultValues());
         wildcardValues.put("main", "EmployeePosition");
         wildcardValues.put("plural", "EmployeePositions");
@@ -35,9 +35,7 @@ public class Main {
     }
 
     private static void writeFile(String filename, String content) throws IOException {
-        Path path = CONFIG?.getOutputDirectory()?.resolve(filename);
-        if (path == null)
-            throw new RuntimeException("Output directory is not set.");
+        Path path = CONFIG.getOutputDirectory().resolve(filename);
         Files.deleteIfExists(path);
         Files.writeString(path, content, StandardOpenOption.CREATE);
     }
