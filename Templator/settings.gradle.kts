@@ -1,3 +1,9 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+    }
+}
+
 rootProject.name = "Templator"
 
 include("core")

@@ -1,9 +1,9 @@
 package com.github.fadingafterglow.templator.client;
 
-import com.github.fadingafterglow.templator.core.impl.TemplateProcessor;
-import com.github.fadingafterglow.templator.core.impl.WildcardModifierProcessorRegistry;
 import com.github.fadingafterglow.templator.core.impl.DefaultWildcardIterator;
 import com.github.fadingafterglow.templator.core.impl.DefaultWildcardResolver;
+import com.github.fadingafterglow.templator.core.impl.TemplateProcessor;
+import com.github.fadingafterglow.templator.core.impl.WildcardModifierProcessorRegistry;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,10 +1,10 @@
 package com.github.fadingafterglow.templator.client;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.nio.file.Path;
 import java.util.Map;
+
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder
