@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Configuration CONFIG = Configuration.builder()
+    private static final Configuration CONFIG = new ConfigurationBuilder()
             .outputDirectory(Path.of("/Users/nick/Downloads"))
             .build();
 
