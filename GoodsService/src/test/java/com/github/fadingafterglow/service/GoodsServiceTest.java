@@ -6,6 +6,7 @@ import com.github.fadingafterglow.dto.UpdateGoods;
 import com.github.fadingafterglow.entity.GoodsEntity;
 import com.github.fadingafterglow.exception.ValidationException;
 import com.github.fadingafterglow.filter.GoodsFilter;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -72,11 +73,14 @@ public class GoodsServiceTest extends BaseTest {
 
     @Test
     void ifGoodsDoesNotExist_shouldNotFindByIdAndThrowException() {
-        assertThrows(NoSuchElementException.class, () -> service.findById(-1));
+        final int id = -1;
+        Assumptions.assumeFalse(exists(id));
+        assertThrows(NoSuchElementException.class, () -> service.findById(id));
     }
 
     @Test
     void givenFiler_shouldReturnCorrectGoods() {
+        Assumptions.assumeTrue(transactionDelegate.runInTransaction(() -> goodsRepository.countAll() == 0));
         Integer[] ids = createGoodsForFilterTest();
 
         GoodsFilter filter = GoodsFilter.builder()
@@ -274,13 +278,15 @@ public class GoodsServiceTest extends BaseTest {
 
     @Test
     void ifGoodsDoesNotExist_shouldThrowExceptionAndNotUpdate() {
+        final int id = -1;
+        Assumptions.assumeFalse(exists(id));
         UpdateGoods dto = UpdateGoods.builder()
                 .name("Bread")
                 .category("Bakery")
                 .price(BigDecimal.valueOf(99.99))
                 .quantity(5)
                 .build();
-        assertThrows(NoSuchElementException.class, () -> service.update(-1, dto));
+        assertThrows(NoSuchElementException.class, () -> service.update(id, dto));
         assertCount(0);
     }
 
@@ -299,7 +305,9 @@ public class GoodsServiceTest extends BaseTest {
 
     @Test
     void ifGoodsDoesNotExist_shouldNotDeleteAndReturnFalse() {
-        assertFalse(service.delete(-1));
+        final int id = -1;
+        Assumptions.assumeFalse(exists(id));
+        assertFalse(service.delete(id));
         assertCount(0);
     }
 
@@ -344,6 +352,10 @@ public class GoodsServiceTest extends BaseTest {
                 .build();
         ids.add(service.create(dto4));
         return ids.toArray(new Integer[0]);
+    }
+
+    private boolean exists(int id) {
+        return transactionDelegate.runInTransaction(() -> goodsRepository.getGoodsById(id).isPresent());
     }
 
     private void assertEntity(int id, UpdateGoods dto) {
