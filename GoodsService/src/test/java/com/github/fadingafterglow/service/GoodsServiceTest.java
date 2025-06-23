@@ -7,6 +7,7 @@ import com.github.fadingafterglow.entity.GoodsEntity;
 import com.github.fadingafterglow.exception.ValidationException;
 import com.github.fadingafterglow.filter.GoodsFilter;
 import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -60,6 +61,7 @@ public class GoodsServiceTest extends BaseTest {
     }
 
     @Test
+    @Tag("read")
     void ifGoodsExists_shouldFindByIdAndReturnGoods() {
         UpdateGoods dto = UpdateGoods.builder()
                 .name("Bread")
@@ -72,6 +74,7 @@ public class GoodsServiceTest extends BaseTest {
     }
 
     @Test
+    @Tag("read")
     void ifGoodsDoesNotExist_shouldNotFindByIdAndThrowException() {
         final int id = -1;
         Assumptions.assumeFalse(exists(id));
@@ -79,6 +82,7 @@ public class GoodsServiceTest extends BaseTest {
     }
 
     @Test
+    @Tag("read")
     void givenFiler_shouldReturnCorrectGoods() {
         Assumptions.assumeTrue(transactionDelegate.runInTransaction(() -> goodsRepository.countAll() == 0));
         Integer[] ids = createGoodsForFilterTest();
